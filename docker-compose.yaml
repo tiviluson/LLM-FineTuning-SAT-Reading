@@ -1,0 +1,36 @@
+services:
+  vllm_app:
+    image: vllm/vllm-openai:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    command: >
+      --host 0.0.0.0
+      --model "meta-llama/Llama-3.2-3B-Instruct"
+      --lora-modules sat-lora="tiviluson/Llama-3.2-3B-SAT"
+      --max-model-len 2048
+      --enable-lora
+      --enable-prefix-caching
+    ports:
+      - "8000:8000"
+    ipc: host
+    environment:
+      - VLLM_ALLOW_RUNTIME_LORA_UPDATING=True
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "8080:8080"
+    environment:
+      - 'OPENAI_API_BASE_URL=http://vllm_app:8000/v1'
+      - 'OPENAI_API_KEY=EMPTY'
+    depends_on:
+      - vllm_app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
