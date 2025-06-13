@@ -3,7 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 import uvicorn
+import os
+from dotenv import load_dotenv
 from sat_chain import chain
+
+# Load environment variables
+load_dotenv()
 
 
 app = FastAPI(title="SAT Reading Tutor Backend", version="1.0.0")
@@ -74,8 +79,8 @@ async def health_check():
 if __name__ == "__main__":
     uvicorn.run(
         "backend_server:app",
-        host="0.0.0.0",
-        port=8090,
+        host=os.getenv("HOST", "localhost"),
+        port=int(os.getenv("BACKEND_PORT", "8090")),
         reload=True,
         log_level="info",
     )

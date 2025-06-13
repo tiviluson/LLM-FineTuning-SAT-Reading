@@ -2,8 +2,12 @@ import gradio as gr
 import requests
 from typing import List
 from pydantic import BaseModel
+from dotenv import load_dotenv
+import os
 
-BACKEND_URL = "http://localhost:8090/submit_mcq"
+load_dotenv()
+
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8090/submit_mcq")
 
 
 class MCQRequest(BaseModel):
@@ -192,6 +196,6 @@ if __name__ == "__main__":
     interface = create_mcq_interface()
     interface.launch(
         server_name="localhost",
-        server_port=7860,
+        server_port=int(os.getenv("FRONTEND_PORT", "7860")),
         # debug=True,  # Enable debug mode
     )

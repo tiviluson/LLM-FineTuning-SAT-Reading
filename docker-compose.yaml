@@ -11,14 +11,14 @@ services:
     volumes:
       - ~/.cache/huggingface:/root/.cache/huggingface
     command: >
-      --host 0.0.0.0
-      --model "meta-llama/Llama-3.2-3B-Instruct"
-      --lora-modules sat-lora="tiviluson/Llama-3.2-3B-SAT"
+      --host ${HOST}
+      --model "${BASE_MODEL}"
+      --lora-modules "${SAT_LORA_MODEL_NAME}"="${LORA_MODEL}"
       --max-model-len 2048
       --enable-lora
       --enable-prefix-caching
     ports:
-      - "8000:8000"
+      - "${VLLM_PORT}:${VLLM_PORT}"
     ipc: host
     environment:
       - VLLM_ALLOW_RUNTIME_LORA_UPDATING=True
@@ -26,10 +26,10 @@ services:
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     ports:
-      - "8080:8080"
+      - "${OPEN_WEBUI_PORT}:${OPEN_WEBUI_PORT}"
     environment:
-      - 'OPENAI_API_BASE_URL=http://vllm_app:8000/v1'
-      - 'OPENAI_API_KEY=EMPTY'
+      - 'OPENAI_API_BASE_URL=${VLLM_API_BASE_URL}'
+      - 'OPENAI_API_KEY=${VLLM_API_KEY}'
     depends_on:
       - vllm_app
     extra_hosts:
