@@ -62,16 +62,16 @@ def submit_mcq_form(
         if response.status_code == 200:
             result = response.json()
             answer = result.get("answer", "No answer provided")
-            return f"Success! Correct Answer:\n\n{answer}"
+            return f"✅ Success! Correct Answer:\n\n{answer}"
         else:
-            return f"Error: Server returned status code {response.status_code}. Response: {response.text}"
+            return f"❌ Error: Server returned status code {response.status_code}. Response: {response.text}"
 
     except requests.exceptions.ConnectionError:
-        return "Error: Could not connect to backend server. Make sure the server is running."
+        return "❌ Error: Could not connect to backend server. Make sure the server is running."
     except requests.exceptions.Timeout:
-        return "Error: Request timed out. The server might be busy."
+        return "❌ Error: Request timed out. The server might be busy."
     except Exception as e:
-        return f"Error: {str(e)}"
+        return f"❌ Error: {str(e)}"
 
 
 def create_mcq_interface():
@@ -98,7 +98,7 @@ def create_mcq_interface():
             with gr.Column(scale=2):
                 # Reading text input
                 reading_input = gr.Textbox(
-                    label="Reading Passage",
+                    label="📖 Reading Passage",
                     placeholder="Enter the reading passage here...",
                     lines=8,
                     value=sample_text,
@@ -106,7 +106,7 @@ def create_mcq_interface():
 
                 # Question input
                 question_input = gr.Textbox(
-                    label="Question",
+                    label="❓ Question",
                     placeholder="Enter the question here...",
                     lines=2,
                     value=sample_question,
@@ -139,12 +139,12 @@ def create_mcq_interface():
 
                 # Submit button
                 submit_btn = gr.Button(
-                    "Submit to Backend", variant="primary", size="lg"
+                    "📤 Submit to Backend", variant="primary", size="lg"
                 )
 
             with gr.Column(scale=1):
                 # Response display
-                gr.Markdown("### Backend Response")
+                gr.Markdown("### 📋 Backend Response")
                 response_output = gr.Textbox(
                     label="Server Response",
                     lines=10,
@@ -153,7 +153,7 @@ def create_mcq_interface():
                 )
 
                 # Clear button
-                clear_btn = gr.Button("Clear Form", variant="secondary")
+                clear_btn = gr.Button("🗑️ Clear Form", variant="secondary")
 
         # Event handlers
         submit_btn.click(
