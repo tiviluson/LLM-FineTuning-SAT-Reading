@@ -14,7 +14,7 @@ services:
       --host ${HOST}
       --model "${BASE_MODEL}"
       --lora-modules "${SAT_LORA_MODEL_NAME}"="${LORA_MODEL}"
-      --max-model-len 2048
+      --max-model-len ${MAX_MODEL_LEN}
       --enable-lora
       --enable-prefix-caching
     ports:
