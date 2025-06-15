@@ -22,15 +22,47 @@ services:
     ipc: host
     environment:
       - VLLM_ALLOW_RUNTIME_LORA_UPDATING=True
+    networks:
+      - sat-network
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     ports:
       - "${OPEN_WEBUI_PORT}:${OPEN_WEBUI_PORT}"
-    environment:
-      - 'OPENAI_API_BASE_URL=${VLLM_API_BASE_URL}'
-      - 'OPENAI_API_KEY=${VLLM_API_KEY}'
+    env_file:
+      - .env
     depends_on:
       - vllm_app
+    networks:
+      - sat-network
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    env_file:
+      - .env
+    depends_on:
+      - vllm_app
+    networks:
+      - sat-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+    networks:
+      - sat-network
+
+networks:
+  sat-network:

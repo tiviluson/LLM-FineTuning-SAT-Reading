@@ -1,0 +1,73 @@
+# Dockerignore file to reduce build context size
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# Model files and training data
+models/
+quantized_model/
+trained-model/
+llama3-8b-sat-reading/
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Large dependencies not needed for runtime
+uv.lock
+pyproject.toml
+requirements.txt
+
+# Documentation
+README.md
+LICENSE
+
+# Test files
+test.ipynb
+
+# Other project folders
+llm-finetuning-vllm/
