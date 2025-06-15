@@ -7,7 +7,6 @@ import os
 from dotenv import load_dotenv
 from sat_chain import chain
 
-# Load environment variables
 load_dotenv()
 
 
@@ -79,7 +78,8 @@ async def health_check():
 if __name__ == "__main__":
     uvicorn.run(
         "backend_server:app",
-        host=os.getenv("HOST", "localhost"),
+        # Listen on all interfaces
+        host="0.0.0.0",
         port=int(os.getenv("BACKEND_PORT", "8090")),
         reload=True,
         log_level="info",

@@ -195,7 +195,7 @@ def create_mcq_interface():
 if __name__ == "__main__":
     interface = create_mcq_interface()
     interface.launch(
-        server_name="localhost",
+        server_name=os.getenv("HOST", "localhost"),
         server_port=int(os.getenv("FRONTEND_PORT", "7860")),
         # debug=True,  # Enable debug mode
     )

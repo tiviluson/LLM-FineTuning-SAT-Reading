@@ -3,6 +3,10 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 LLAMA3_SYSTEM_PROMPT = (
@@ -27,8 +31,8 @@ prompt = PromptTemplate(
 )
 
 llm = ChatOpenAI(
-    openai_api_key="empty",
-    openai_api_base="http://localhost:8000/v1",
+    openai_api_key=os.getenv("OPENAI_API_KEY", "empty"),
+    openai_api_base=os.getenv("OPENAI_API_BASE_URL", "http://localhost:8000/v1"),
     model="sat-lora",
 )
 
