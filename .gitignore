@@ -172,3 +172,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+llama3-8b-sat-reading
+llm-finetuning-vllm
+models
+quantized_model
+trained-model
