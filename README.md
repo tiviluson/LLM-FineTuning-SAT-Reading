@@ -25,10 +25,18 @@ An intelligent SAT Reading comprehension tutor powered by a fine-tuned, quantize
 ### In Progress
 - [ ] **Benchmarking**: integration and performance testing
 - [ ] **Monitoring**: Logging, metrics, and error tracking with LangSmith, Loki, Prometheus, and Grafana
+- [ ] **Answer Explanations**: Enhance prompts to generate detailed explanations with step-by-step reasoning
 
 ### Planned
 - [ ] **Enhanced Features**: Multi-model support, Multi-LoRA
-- [ ] **DevOps**: Kubernetes deployment and cloud integration via ArgoCD
+- [ ] **CI/CD**: Kubernetes deployment and cloud integration via ArgoCD
+- [ ] **Model registry**: Implement a model registry for versioning various fine-tuned models
+- [ ] **Question bank with RAG**: Implement a question bank with Retrieval-Augmented Generation (RAG) for dynamic question retrieval
+- [ ] **Import and Export Features**: Allow users to import questions and export practice session results and progress reports
+- [ ] **Data Persistence**: Database integration for storing user data and question responses
+- [ ] **Timed Practice**: Implement realistic SAT timing constraints and practice modes
+- [ ] **Authentication**: Simple user authentication and authorization system
+- [ ] **Rate Limiting**: API rate limiting and request throttling to prevent abuse
 
 ## Overview
 
